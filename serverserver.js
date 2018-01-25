@@ -31,7 +31,7 @@ app.get('/getBlock', (req, res) => {
    // res.send(doc.map(document => document.BLOCK));  
    //var data = doc.map(document => document.BLOCK); 
 
-   res.send(doc);
+   res.send(doc[0]);
   });
 });
 
