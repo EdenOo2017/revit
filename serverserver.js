@@ -31,7 +31,7 @@ app.get('/getBlock', (req, res) => {
    // res.send(doc.map(document => document.BLOCK));  
    //var data = doc.map(document => document.BLOCK);  
    
-   var keys = Object.keys(doc[0].BLOCK[0]);
+   var keys = Object.keys(doc[0].BLOCK[1]);
 
    res.send(keys);
   });
