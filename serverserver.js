@@ -27,9 +27,18 @@ function calcTime() {
 //#region API......................................................
 
 app.get('/getBlock', (req, res) => {
-  UserData.find({},{ _id: 0}).then(function (doc) {
+  UserData.find({}, { _id: 0 }).then(function (doc) {
     //res.send(doc.map(document => document._id));
-    res.send(doc);
+    var tagMap = {};
+    var i = null;
+    for (i = 0; doc.length > i; i += 1) {
+      tagMap[doc[i].Block-1] = doc[i];
+    }
+
+    var hasTag = function (tagName) {
+      return tagMap[tagName];
+    };
+    res.send(tagMap);
   });
 });
 
