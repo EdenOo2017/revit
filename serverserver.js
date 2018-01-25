@@ -27,9 +27,9 @@ function calcTime() {
 //#region API......................................................
 
 app.get('/getBlock', (req, res) => {
-  UserData.find({}).then(function (doc) {
-    res.send(doc.map(document => document._id));
-    //res.send(doc);
+  UserData.find({},{ _id: 0}).then(function (doc) {
+    //res.send(doc.map(document => document._id));
+    res.send(doc);
   });
 });
 
