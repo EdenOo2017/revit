@@ -28,7 +28,8 @@ function calcTime() {
 
 app.get('/getBlock', (req, res) => {
   UserData.find({},{ _id: 0}).then(function (doc) {
-    res.send(doc.map(document => document.BlockName));     
+   // res.send(doc.map(document => document.));     
+   res.send(doc);
   });
 });
 
