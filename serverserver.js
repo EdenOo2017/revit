@@ -32,7 +32,7 @@ app.get('/getBlock', (req, res) => {
       
     var keys = Object.keys(doc[0].BLOCK);   
 
-   res.send(keys.toString);
+   res.send(keys.toString());
   });
 });
 
