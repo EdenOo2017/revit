@@ -32,7 +32,7 @@ app.get('/getBlock', (req, res) => {
    
    var a = (doc[0]).BLOCK[0];
     
-   res.send(a[0]);
+   res.send(a.Block-1[0]);
   });
 });
 
