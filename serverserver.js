@@ -30,10 +30,19 @@ app.get('/getBlock', (req, res) => {
   UserData.find({},{ _id: 0}).then(function (doc) {
    // res.send(doc.map(document => document.BLOCK));  
    var data = doc[0].BLOCK.map(document => document);  
+
+   var i = 0;
+
+   var blockArray = [];
+   for(i ; i < doc.length ; i++){
+
+    var keys = Object.keys(doc[i].BLOCK);
+    blockArray.push(keys);
+   }
    
   //  var keys = Object.keys(doc[0].BLOCK);
 
-   res.send(data);
+   res.send(blockArray);
   });
 });
 
