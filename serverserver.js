@@ -31,16 +31,16 @@ app.get('/getBlock', (req, res) => {
    // res.send(doc.map(document => document.BLOCK));  
    //var data = doc[0].BLOCK.map(document => document);  
 
-  //  var i = 0;
+   var i = 0;
 
-  //  var blockArray = [];
-  //  for(i ; i < doc.length ; i++){
+   var blockArray = [];
+   for(i ; i < doc.length ; i++){
 
-  //   var keys = Object.keys(doc[i].BLOCK[0]);
-  //   blockArray.push(keys);
-  //  }
+    var keys = Object.keys(doc[0].BLOCK[i]);
+    blockArray.push(keys);
+   }
    
-    var keys = Object.keys(doc[0].BLOCK[0]);
+    //var keys = Object.keys(doc[0].BLOCK[0]);
 
    res.send(keys);
   });
