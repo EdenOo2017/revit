@@ -42,7 +42,7 @@ app.get('/getBlock', (req, res) => {
    
     //var keys = Object.keys(doc[0].BLOCK[0]);
 
-   res.send(keys);
+   res.send(blockArray);
   });
 });
 
