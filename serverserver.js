@@ -38,11 +38,12 @@ app.get('/getBlock', (req, res) => {
 
     var keys = Object.keys(doc[0].BLOCK[i]);
     blockArray.push(keys);
+    res.send(keys);
    }
    
     //var keys = Object.keys(doc[0].BLOCK[0]);
 
-   res.send(blockArray);
+  
   });
 });
 
