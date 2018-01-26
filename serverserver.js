@@ -30,9 +30,9 @@ app.get('/getBlock', (req, res) => {
   UserData.find({},{ _id: 0}).then(function (doc) {
    // res.send(doc.map(document => document.BLOCK)); 
       
-    var keys = Object.keys(doc[0].BLOCK);   
+    var keys = Object.keys(doc[0].BLOCK[1]);   
 
-   res.send(keys.toString());
+   res.send(keys);
   });
 });
 
