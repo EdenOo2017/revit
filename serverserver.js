@@ -30,7 +30,7 @@ app.get('/getBlock', (req, res) => {
   UserData.find({},{ _id: 0}).then(function (doc) {
    // res.send(doc.map(document => document.BLOCK));    
    
-   var a = (doc[0]).BLOCK[0];
+   var a = (doc[0]);
     
    res.send(a);
   });
