@@ -38,7 +38,7 @@ app.get('/getBlock', (req, res) => {
    var blockArray = [];
    for(i ; i < data.length ; i++){
 
-    var keys = Object.keys(data[i]);
+    var keys = Object.keys(doc[0].BLOCK[i]);
     blockArray.push(keys);
     res.send(keys);
    }
