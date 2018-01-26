@@ -6,7 +6,11 @@ mongoose.Promise = global.Promise;
 var Schema = mongoose.Schema;
 
 var userDataSchema = new Schema({
-    BLOCK: Array,
+    BLOCK:[
+        { 
+
+        }
+    ]
  
 }, { collection: 'revit' });
 
