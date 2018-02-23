@@ -218,36 +218,36 @@ apiRoutes.get('/users', function (req, res) {
 
 //#region API.........................................................
 
-app.post('/insertData', (req, res) => {
-  var data = req.body;
+// app.post('/insertData', (req, res) => {
+//   var data = req.body;
 
-  UserData.insertMany({ BLOCK: req.body }, function (err, doc) {
-    if (err) {
-      return res.status(404).send("Update Fail!");
-    }
-  });
-  res.send('Ok')
-})
+//   UserData.insertMany({ BLOCK: req.body }, function (err, doc) {
+//     if (err) {
+//       return res.status(404).send("Update Fail!");
+//     }
+//   });
+//   res.send('Ok')
+// })
 
-app.get('/getBlock', (req, res) => {
-  UserData.find({}, { _id: 0 }).then(function (doc) {
-    // res.send(doc.map(document => document.BLOCK));       
-    res.send(doc[0]);
-  });
-});
+// app.get('/getBlock', (req, res) => {
+//   UserData.find({}, { _id: 0 }).then(function (doc) {
+//     // res.send(doc.map(document => document.BLOCK));       
+//     res.send(doc[0]);
+//   });
+// });
 
-app.get('/last', (req, res) => {
-  UserData.find({}, { _id: 0 }).sort({ _id: -1 }).limit(1).then(function (doc) {
-    res.send(doc);
-  });
-});
+// app.get('/last', (req, res) => {
+//   UserData.find({}, { _id: 0 }).sort({ _id: -1 }).limit(1).then(function (doc) {
+//     res.send(doc);
+//   });
+// });
 
-app.get('/count', (req, res) => {
-  UserData.count({}, function (err, count) {
-    console.log("Number of users:", count);
-    res.send(count.toString());
-  });
-});
+// app.get('/count', (req, res) => {
+//   UserData.count({}, function (err, count) {
+//     console.log("Number of users:", count);
+//     res.send(count.toString());
+//   });
+// });
 
 //#endregion
 
