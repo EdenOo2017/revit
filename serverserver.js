@@ -150,8 +150,7 @@ apiRoutes.post('/saveData', (req, res) => {
   });
 })
 
-apiRoutes.post('/insertData', (req, res) => {
-  var data = req.body;
+apiRoutes.post('/insertData', (req, res) => {  
 
   UserData.insertMany({ BLOCK: req.body }, function (err, doc) {
     if (err) {
@@ -254,6 +253,23 @@ apiRoutes.get('/users', function (req, res) {
 app.use('/api', apiRoutes);
 
 module.exports = { app };
+
+
+setInterval(function() {
+  
+  var options = { method: 'GET',
+  url: 'https://nameless-woodland-39537.herokuapp.com/address',
+  headers: 
+   { 'Postman-Token': '10efcda8-0468-3af7-60d4-faa4496a9195',
+     'Cache-Control': 'no-cache' } };
+
+request(options, function (error, response, body) {
+  if (error) throw new Error(error);
+
+  console.log(body);
+});
+
+}, 300000); // every 3 minutes 
 
 
 
