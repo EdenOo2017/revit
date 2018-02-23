@@ -1,4 +1,5 @@
 var express = require('express');
+const request = require('request');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
 var MongoClient = require('mongodb').MongoClient;
@@ -254,7 +255,7 @@ app.use('/api', apiRoutes);
 
 module.exports = { app };
 
-
+//#region Wakeup.........................................................
 setInterval(function() {
   
   var options = { method: 'GET',
@@ -269,8 +270,9 @@ request(options, function (error, response, body) {
   console.log(body);
 });
 
-}, 300000); // every 3 minutes 
+}, 3000); // every 3 minutes 
 
+//#endregion
 
 
 
