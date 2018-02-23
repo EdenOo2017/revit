@@ -272,7 +272,7 @@ request(options, function (error, response, body) {
   console.log(body);
 });
 
-}, 1000000); // every 10 minutes 
+}, 30000); // every 3 minutes 
 
 //#endregion
 
