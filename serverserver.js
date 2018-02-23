@@ -66,7 +66,9 @@ app.get('/setup', function (req, res) {
 
 // basic route (http://localhost:8080)
 app.get('/address', function (req, res) {
-  res.send('Hello! wake up!');
+
+  var str = calcTime();
+  res.send('Hello! wake up! ' + '' + str);
 });
 
 // ---------------------------------------------------------
@@ -270,7 +272,7 @@ request(options, function (error, response, body) {
   console.log(body);
 });
 
-}, 300000); // every 3 minutes 
+}, 1000000); // every 10 minutes 
 
 //#endregion
 
