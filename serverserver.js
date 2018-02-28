@@ -169,10 +169,25 @@ apiRoutes.post('/insertData', (req, res) => {
   UserData.insertMany({ BLOCK: req.body }, function (err, doc) {
     if (err) {
       return res.status(404).send("Update Fail!");
-    }
+    };
   });
-  res.send('Ok')
-})
+
+  UserData.count({}, function (err, count) {
+    if (err) {
+      return res.send("Document count error!");
+    };
+
+    if (count == 3) {
+      UserData.findOneAndRemove({}, function (err, doc) {
+        if (err)
+          res.send(err);
+        else
+          res.status(200).send("Ok");
+      });
+    };
+    res.status(200).send("Ok");
+  });
+});
 
 apiRoutes.get('/getData', function (req, res) {
 
@@ -215,7 +230,7 @@ apiRoutes.get('/getData', function (req, res) {
 
 apiRoutes.post('/updateData', (req, res) => {
 
-  updateStatus(url ,req ,res);  
+  updateStatus(url, req, res);
 
   //#region...................................
 

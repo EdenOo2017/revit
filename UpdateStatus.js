@@ -9,7 +9,7 @@ var config = require('./config');
 var bodyParser = require('body-parser');
 var UserData = require('./mongoose.model');
 var UserAuthoData = require('./mongoose.users');
-var ObjectID = require('mongodb').ObjectID; 
+var ObjectID = require('mongodb').ObjectID;
 var UserUpdateStatus = require('./mongoose.updateStatus');
 
 module.exports = function (url, req, res) {
@@ -90,11 +90,13 @@ module.exports = function (url, req, res) {
                                 }
 
                                 if (checker == true) {
-                                    UserUpdateStatus.update({"_id" : ObjectID(LastDocumentId)} , { $set: data }).sort({ _id: -1 }).limit(1).then(function (doc) {
+                                    UserUpdateStatus.update({ "_id": ObjectID(LastDocumentId) }, { $set: data }).sort({ _id: -1 }).limit(1).then(function (doc) {
                                         if (doc.length === 0) {
                                             res.status(200).send("Error");
                                         }
+
                                         res.status(200).send("OK");
+
                                         // console.log(data);
                                         // console.log(dataCheck);
                                     });
