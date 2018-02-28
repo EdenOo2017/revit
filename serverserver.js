@@ -215,10 +215,104 @@ apiRoutes.get('/getData', function (req, res) {
 
 apiRoutes.post('/updateData', (req, res) => {
 
-  updateStatus(url , req ,res);
+  updateStatus(url ,req ,res);  
 
+  //#region...................................
+
+  // MongoClient.connect(url, function (err, db) {
+  //   if (err) {
+  //     return res.send("Cannot connect to DB");
+  //   }
+
+  //   db.listCollections({ name: 'Progress Claim' })
+  //     .next(function (err, collinfo) {
+  //       if (collinfo) {
+
+  //         UserUpdateStatus.count({}, function (err, count) {
+  //           if (err) {
+  //             return res.send("Document count error!");
+  //           }
+
+  //           if (count == 0) {
+  //             res.send("Empty Document");
+  //           } else {
+
+  //             var a = req.body.Category;
+  //             var b = req.body.ObjectId;
+
+  //             if (a == null || b == null) {
+  //               res.send("Check request body!")
+  //             }
+
+  //             UserUpdateStatus.find({}, { _id: 0 }).sort({ _id: -1 }).limit(1).then(function (doc) {
+  //               if (doc.length === 0) {
+  //                 return res.status(404).send("Element Not Found!");
+  //               }
+
+  //               var block = doc[0].BLOCK;
+
+  //               let data = {};
+  //               let dataCheck = {};
+  //               var checker = null;
+
+  //               for (var i = 0; i < block.length; i++) {
+  //                 var level = block[i].Level;
+
+  //                 for (var j = 0; j < level.length; j++) {
+  //                   var category = level[j].Category;
+
+  //                   for (var k = 0; k < category.length; k++) {
+
+  //                     var element = null;
+
+  //                     if (a == "StructuralFoundation") {
+  //                       element = category[k].StructuralFoundation;
+  //                     }
+  //                     if (a == "Column") {
+  //                       element = category[k].Column;
+  //                     }
+  //                     if (a == "Beam") {
+  //                       element = category[k].Beam;
+  //                     }
+
+  //                     if (element != null) {
+  //                       for (var l = 0; l < element.length; l++) {
+
+  //                         if ((element[l].ObjectId).toString() == b) {
+  //                           checker = "1";
+  //                           var status = parseInt(element[l].status);
+  //                           dataCheck["BLOCK.0.Level." + i + ".Category." + k + "." + a + "." + l + ".ObjectId"] = b;
+  //                           data["BLOCK.0.Level." + i + ".Category." + k + "." + a + "." + l + ".status"] = (status + 1).toString();
+  //                         }
+  //                       }
+  //                     }
+  //                   }
+  //                 }
+  //               }
+
+  //               if (checker == "1") {
+  //                 UserUpdateStatus.update(dataCheck, { $set: data },
+  //                   function (err, docs) {
+  //                     if (err) {
+  //                       res.status(200).send("Error");
+  //                     }
+  //                     res.status(200).send("OK");
+  //                     console.log(data);
+  //                     console.log(dataCheck);
+  //                   });
+  //               } else {
+  //                 return res.status(404).send("Element Not Found!");
+  //               }
+  //             });
+  //           }
+  //         });
+  //       }
+  //     });
+  //   db.close();
+  // });
+
+  //#endregion...............................
 });
-
 
 //#endregion API......................................................
 

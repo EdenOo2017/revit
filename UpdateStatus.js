@@ -46,7 +46,7 @@ module.exports = function (url, req, res) {
 
                                 let data = {};
                                 let dataCheck = {};
-                                var checker = null;                               
+                                var checker = null;
 
                                 //#region.................................................................
 
@@ -86,12 +86,13 @@ module.exports = function (url, req, res) {
                                 }
 
                                 if (checker == true) {
-                                    UserUpdateStatus.update(dataCheck, { $set: data }).sort({ _id: -1 }).limit(1).then(function (doc) {
+                                    UserUpdateStatus.update(dataCheck , { $set: data }).sort({ _id: -1 }).limit(1).then(function (doc) {
                                         if (doc.length === 0) {
                                             res.status(200).send("Error");
                                         }
                                         res.status(200).send("OK");
-                                        // console.log(data);
+                                        console.log(data);
+                                        console.log(dataCheck);
                                     });
                                 } else {
                                     return res.status(404).send("Element Not Found!");
