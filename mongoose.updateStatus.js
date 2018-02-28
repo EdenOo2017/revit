@@ -9,16 +9,43 @@ mongoose.connect(url, { useMongoClient: true });
 mongoose.Promise = global.Promise;
 var Schema = mongoose.Schema;
 
-var userDataSchema = new Schema({ 
-    DateTime: String,
-    status: String,
-    volume: String,
-    size: String,
-    ObjectId: String, 
-    mark: String,
-    LevelName: String    
-	 
-}, { collection: 'UpdateStatus' , versionKey: false});
+var userDataSchema = new Schema({
+    BLOCK: [{
+        ProjectName: String,
+        uploadDateTime: String,
+        Level: [{
+            levelName: String,
+            Category: [{
+                Column:[{
+                    LevelName: String,
+                    mark: String,
+                    ObjectId: String,
+                    size: String,
+                    volume: String,
+                    status: String,
+                    DateTime: String
+                }],
+                Beam:[{
+                    LevelName: String,
+                    mark: String,
+                    ObjectId: String,
+                    size: String,
+                    volume: String,
+                    status: String,
+                    DateTime: String
+                }],
+                StructuralFoundation:[{
+                    LevelName: String,
+                    mark: String,
+                    ObjectId: String,
+                    size: String,                   
+                    status: String,
+                    DateTime: String
+                }]
+            }]
+        }]
+    }]   
+}, { collection: 'Progress Claim', versionKey: false });
 
 var UserUpdateStatus = mongoose.model('UserUpdateStatus', userDataSchema);
 

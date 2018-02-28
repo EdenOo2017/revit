@@ -11,15 +11,6 @@ var Schema = mongoose.Schema;
 
 var userDataSchema = new Schema({
     BLOCK: Array
-
-    //    DateTime: String,
-    //    status: String,
-    //    volume: String,
-    //    size: String,
-    //    ObjectId: String,
-    //    mark: String,
-    //    LevelName: String
-
 }, { collection: 'Progress Claim', versionKey: false });
 
 var UserData = mongoose.model('UserData', userDataSchema);

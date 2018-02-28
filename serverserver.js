@@ -14,8 +14,9 @@ var app = express();
 var apiRoutes = express.Router();
 const server = require('http').createServer(app)
 const port = process.env.PORT || 3000;
+var updateStatus = require('./UpdateStatus')
 
-app.use( require('request-param')() );
+app.use(require('request-param')());
 
 var url = config.database;
 
@@ -140,6 +141,14 @@ apiRoutes.use(function (req, res, next) {
 
 //#region API......................................................
 
+//#region Reference only...........................................
+
+apiRoutes.get('/users', function (req, res) {
+  UserAuthoData.find({}, { _id: 0 }).then(function (users) {
+    res.json(users);
+  });
+});
+
 apiRoutes.post('/saveData', (req, res) => {
   var data = req.body;
 
@@ -153,7 +162,9 @@ apiRoutes.post('/saveData', (req, res) => {
   });
 })
 
-apiRoutes.post('/insertData', (req, res) => {  
+//endregion.........................................................
+
+apiRoutes.post('/insertData', (req, res) => {
 
   UserData.insertMany({ BLOCK: req.body }, function (err, doc) {
     if (err) {
@@ -190,8 +201,8 @@ apiRoutes.get('/getData', function (req, res) {
               });
 
             }
-           
-          });          
+
+          });
 
         } else {
           res.send("Empty Document");
@@ -202,19 +213,12 @@ apiRoutes.get('/getData', function (req, res) {
   });
 });
 
-apiRoutes.put('/updateData', (req, res) => {
-  var objId = req.body.ObjectId;
+apiRoutes.post('/updateData', (req, res) => {
 
-  UserData.find({}, { _id: 0 }).then(function (doc) {
-    res.send(doc[0].BLOCK[0]);
-  });
-})
+  updateStatus(url , req ,res);
 
-apiRoutes.get('/users', function (req, res) {
-  UserAuthoData.find({}, { _id: 0 }).then(function (users) {
-    res.json(users);
-  });
 });
+
 
 //#endregion API......................................................
 
@@ -258,21 +262,25 @@ app.use('/api', apiRoutes);
 module.exports = { app };
 
 //#region Wakeup.........................................................
-setInterval(function() {
-  
-  var options = { method: 'GET',
-  url: 'https://nameless-woodland-39537.herokuapp.com/address',
-  headers: 
-   { 'Postman-Token': '10efcda8-0468-3af7-60d4-faa4496a9195',
-     'Cache-Control': 'no-cache' } };
+setInterval(function () {
 
-request(options, function (error, response, body) {
-  if (error) throw new Error(error);
+  var options = {
+    method: 'GET',
+    url: 'https://nameless-woodland-39537.herokuapp.com/address',
+    headers:
+      {
+        'Postman-Token': '10efcda8-0468-3af7-60d4-faa4496a9195',
+        'Cache-Control': 'no-cache'
+      }
+  };
 
-  console.log(body);
-});
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error);
 
-}, 900000); // every 3 minutes 
+    console.log(body);
+  });
+
+}, 900000); // every 15 minutes 
 
 //#endregion..............
 
