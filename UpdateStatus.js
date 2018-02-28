@@ -80,8 +80,8 @@ module.exports = function (url, req, res) {
                                                     if ((element[l].ObjectId).toString() == b) {
                                                         checker = true;
                                                         var status = parseInt(element[l].status);
-                                                        dataCheck["BLOCK.0.Level." + i + ".Category." + k + "." + a + "." + l + ".ObjectId"] = b;
-                                                        data["BLOCK.0.Level." + i + ".Category." + k + "." + a + "." + l + ".status"] = (status + 1).toString();
+                                                        dataCheck["BLOCK.0.Level." + j + ".Category." + k + "." + a + "." + l + ".ObjectId"] = b;
+                                                        data["BLOCK.0.Level." + j + ".Category." + k + "." + a + "." + l + ".status"] = (status + 1).toString();
                                                     }
                                                 }
                                             }
