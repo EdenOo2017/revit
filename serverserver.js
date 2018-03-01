@@ -170,21 +170,6 @@ apiRoutes.post('/insertData', (req, res) => {
     if (err) {
       return res.status(404).send("Update Fail!");
     };
-  });
-
-  UserData.count({}, function (err, count) {
-    if (err) {
-      return res.send("Document count error!");
-    };
-
-    if (count == 3) {
-      UserData.findOneAndRemove({}, function (err, doc) {
-        if (err)
-          res.send(err);
-        else
-          res.status(200).send("Ok");
-      });
-    };
     res.status(200).send("Ok");
   });
 });
@@ -206,15 +191,15 @@ apiRoutes.get('/getData', function (req, res) {
             }
 
             if (count == 0) {
-
               res.send("Empty Document");
+            }
 
-            } else {
-
+            if (count < 4) {
               UserData.find({}, { _id: 0 }).sort({ _id: -1 }).limit(1).then(function (doc) {
                 res.json(doc[0].BLOCK[0]);
               });
-
+            } else {
+              res.send("Delete One Document");
             }
 
           });
@@ -225,6 +210,16 @@ apiRoutes.get('/getData', function (req, res) {
       });
 
     db.close();
+  });
+});
+
+apiRoutes.delete('/deleteOneDocument', (req, res) => {
+
+  UserData.findOneAndRemove({}, function (err, doc) {
+    if (err)
+      res.send(err);
+    else
+      res.status(200).send("OK");
   });
 });
 
