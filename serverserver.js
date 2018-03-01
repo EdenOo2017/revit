@@ -224,8 +224,17 @@ apiRoutes.get('/getDataDownload', function (req, res) {
       .next(function (err, collinfo) {
         if (collinfo) {
 
-          UserData.find({}, { _id: 0 }).sort({ _id: -1 }).limit(1).then(function (doc) {
-            res.json(doc[0].BLOCK[0]);
+          UserData.count({}, function (err, count) {
+            if (err) {
+              return res.send("Document count error!");
+            }
+            if (count == 0) {
+              res.send("Empty Document");
+            } else {
+              UserData.find({}, { _id: 0 }).sort({ _id: -1 }).limit(1).then(function (doc) {
+                res.json(doc[0].BLOCK[0]);
+              });
+            }
           });
 
         } else {
