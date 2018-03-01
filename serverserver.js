@@ -174,7 +174,7 @@ apiRoutes.post('/insertData', (req, res) => {
   });
 });
 
-apiRoutes.get('/getData', function (req, res) {
+apiRoutes.get('/getDataUpload', function (req, res) {
 
   MongoClient.connect(url, function (err, db) {
     if (err) {
@@ -198,12 +198,45 @@ apiRoutes.get('/getData', function (req, res) {
               });
             }
 
-            if (count > 3) {
+            if (count == 10) {
               res.send("Delete One Document");
             }
 
           });
 
+        } else {
+          res.send("Empty Document");
+        }
+      });
+
+    db.close();
+  });
+});
+
+apiRoutes.get('/getDataDownload', function (req, res) {
+
+  MongoClient.connect(url, function (err, db) {
+    if (err) {
+      return res.send("Cannot connect to DB");
+    }
+
+    db.listCollections({ name: 'Progress Claim' })
+      .next(function (err, collinfo) {
+        if (collinfo) {
+
+          UserData.count({}, function (err, count) {
+            if (err) {
+              return res.send("Document count error!");
+            }
+
+            if (count == 0) {
+              res.send("Empty Document");
+            } else {
+              UserData.find({}, { _id: 0 }).sort({ _id: -1 }).limit(1).then(function (doc) {
+                res.json(doc[0].BLOCK[0]);
+              });
+            }
+          });
         } else {
           res.send("Empty Document");
         }
