@@ -192,13 +192,13 @@ apiRoutes.get('/getData', function (req, res) {
 
             if (count == 0) {
               res.send("Empty Document");
-            }
-
-            if (count < 4) {
+            } else {
               UserData.find({}, { _id: 0 }).sort({ _id: -1 }).limit(1).then(function (doc) {
                 res.json(doc[0].BLOCK[0]);
               });
-            } else {
+            }
+
+            if (count > 3) {
               res.send("Delete One Document");
             }
 
@@ -213,7 +213,7 @@ apiRoutes.get('/getData', function (req, res) {
   });
 });
 
-apiRoutes.delete('/deleteOneDocument', (req, res) => {
+apiRoutes.delete('/deleteOneDocument', function (req, res) {
 
   UserData.findOneAndRemove({}, function (err, doc) {
     if (err)
