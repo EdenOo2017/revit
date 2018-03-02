@@ -48,9 +48,14 @@ module.exports = function (url, req, res) {
 
                                 //console.log(LastDocumentId);
 
-                                let data = {};
-                                let dataCheck = {};
+                                let data = {}; 
+                                let updateTime = {};                               
                                 var checker = null;
+
+                                var d = new Date();
+                                var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+                                var nd = new Date(utc + (3600000 * 8));
+                                var updateDate = nd.toLocaleDateString() + "T" + (nd.toLocaleTimeString());
 
                                 //#region.................................................................
 
@@ -79,9 +84,9 @@ module.exports = function (url, req, res) {
 
                                                     if ((element[l].ObjectId).toString() == b) {
                                                         checker = true;
-                                                        var status = parseInt(element[l].status);
-                                                        dataCheck["BLOCK.0.Level." + j + ".Category." + k + "." + a + "." + l + ".ObjectId"] = b;
+                                                        var status = parseInt(element[l].status);                                                       
                                                         data["BLOCK.0.Level." + j + ".Category." + k + "." + a + "." + l + ".status"] = (status + 1).toString();
+                                                        updateTime["BLOCK.0.Level." + j + ".Category." + k + "." + a + "." + l + ".DateTime"] = updateDate;
                                                     }
                                                 }
                                             }
@@ -90,15 +95,17 @@ module.exports = function (url, req, res) {
                                 }
 
                                 if (checker == true) {
-                                    UserUpdateStatus.update({ "_id": ObjectID(LastDocumentId) }, { $set: data }).sort({ _id: -1 }).limit(1).then(function (doc) {
+                                    var merged_object = JSON.parse((JSON.stringify(data) + JSON.stringify(updateTime)).replace(/}{/g,","))
+                                    UserUpdateStatus.update({ "_id": ObjectID(LastDocumentId) }, {$set: merged_object} ).sort({ _id: -1 }).limit(1).then(function (doc) {
                                         if (doc.length === 0) {
                                             res.status(200).send("Error");
                                         }
 
                                         res.status(200).send("OK");
 
-                                        // console.log(data);
-                                        // console.log(dataCheck);
+                                        //  console.log(data);
+                                        // console.log(updateTime);
+                                        // console.log(merged_object);
                                     });
                                 } else {
                                     return res.status(404).send("Element Not Found!");
