@@ -246,6 +246,40 @@ apiRoutes.get('/getDataDownload', function (req, res) {
   });
 });
 
+apiRoutes.get('/getData', function (req, res) {
+
+  MongoClient.connect(url, function (err, db) {
+    if (err) {
+      return res.send("Cannot connect to DB");
+    }
+
+    db.listCollections({ name: 'Progress Claim' })
+      .next(function (err, collinfo) {
+        if (collinfo) {
+
+          UserData.count({}, function (err, count) {
+            if (err) {
+              return res.send("Document count error!");
+            }
+            if (count == 0) {
+              res.send("Empty Document");
+            } else {
+              UserData.find({}, { _id: 0 }).sort({ _id: -1 }).limit(1).then(function (doc) {
+                res.json(doc[0]);
+              });
+            }
+          });
+
+        } else {
+          res.send("Empty Document");
+        }
+      });
+
+    db.close();
+  });
+});
+
+
 apiRoutes.delete('/deleteOneDocument', function (req, res) {
 
   UserData.findOneAndRemove({}, function (err, doc) {
